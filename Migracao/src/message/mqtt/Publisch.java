@@ -1,4 +1,4 @@
-package mqtt;
+package message.mqtt;
 
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
@@ -31,7 +31,7 @@ public class Publisch {
 		}
 	}
 	
-	public void sendMessage() {
+	public void sendMessage(String msg) {
 		try {
 			message = new MqttMessage(msg.getBytes());
 			client.publish(topic, message);
@@ -44,7 +44,7 @@ public class Publisch {
 	public static void main(String[] args) {
 		Publisch publisch = new Publisch();
 		publisch.connect();
-		publisch.sendMessage();
+		//publisch.sendMessage();
 		publisch.disconnect();
 	}
 
