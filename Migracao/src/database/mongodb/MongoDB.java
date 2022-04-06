@@ -3,20 +3,16 @@ package database.mongodb;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 import org.bson.Document;
-import org.bson.conversions.Bson;
+import org.bson.types.ObjectId;
 
-//import com.mongodb.BasicDBObject;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
-import com.mongodb.client.model.Aggregates;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.Projections;
 
 public class MongoDB {
 	
@@ -38,6 +34,15 @@ public class MongoDB {
 
 	public void insertDocument(MongoCollection<Document> collection, Document document) {
 		collection.insertOne(document);
+	}
+	
+	public ArrayList<ObjectId> idList(MongoIterable<Document> document) {
+		ArrayList<ObjectId> list= new ArrayList<ObjectId>();
+		for (Document doc : document) {
+			ObjectId id = doc.getObjectId("_id");
+			list.add(id);
+		}
+		return list;
 	}
 	
 	public void sendDocument(MongoIterable<Document> document) throws ParseException {

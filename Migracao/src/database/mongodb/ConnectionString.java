@@ -29,5 +29,4 @@ public class ConnectionString {
 	public void setCollection(String collection) {
 		this.collection = collection;
 	}
-	
 }
