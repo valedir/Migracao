@@ -36,7 +36,7 @@ public class MongoDB {
 		collection.insertOne(document);
 	}
 	
-	public ArrayList<ObjectId> idList(MongoIterable<Document> document) {
+	public ArrayList<ObjectId> getList(MongoIterable<Document> document) {
 		ArrayList<ObjectId> list= new ArrayList<ObjectId>();
 		for (Document doc : document) {
 			ObjectId id = doc.getObjectId("_id");
@@ -45,33 +45,17 @@ public class MongoDB {
 		return list;
 	}
 	
-	public void sendDocument(MongoIterable<Document> document) throws ParseException {
-		for (Document doc : document) {
-			String zona = doc.getString("Zona");
-			String sensor = doc.getString("Sensor");
-			String medicao = doc.getString("Medicao");
-			String data = doc.getString("Data");
-			if (data == null) {
-				System.out.println("Zona:" + zona + " Sensor:" + sensor + " Medicao:" + medicao + " Data:" + data);
-			} else {
-				String pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'";
-				SimpleDateFormat formatter = new SimpleDateFormat(pattern);
-				java.util.Date date = formatter.parse(data);
-				Timestamp timestamp = new Timestamp(date.getTime());
-				System.out.println("Zona:" + zona + " Sensor:" + sensor + " Medicao:" + medicao + " Data:" + timestamp);
-
-			}
-		}
-	}
-	
 	/*
-	 * public MongoIterable<Document> dateFromString(MongoCollection<Document>
-	 * collection) { Bson query = Filters.and(Filters.ne("Data",
-	 * "2022-02-31T09:40:03Z"), Filters.ne("Data", null)); Bson projetion =
-	 * Projections.fields(Projections.include("Zona"),
-	 * Projections.include("Sensor"), Projections.include("Medicao"),
-	 * Projections.computed("Data", new Document("$dateFromString", new
-	 * Document("dateString", "$Data")))); return
-	 * collection.find().projection(projetion); }
+	 * public void sendDocument(MongoIterable<Document> document) throws
+	 * ParseException { for (Document doc : document) { String zona =
+	 * doc.getString("Zona"); String sensor = doc.getString("Sensor"); String
+	 * medicao = doc.getString("Medicao"); String data = doc.getString("Data"); if
+	 * (data == null) { System.out.println("Zona:" + zona + " Sensor:" + sensor +
+	 * " Medicao:" + medicao + " Data:" + data); } else { String pattern =
+	 * "yyyy-MM-dd'T'HH:mm:ss'Z'"; SimpleDateFormat formatter = new
+	 * SimpleDateFormat(pattern); java.util.Date date = formatter.parse(data);
+	 * Timestamp timestamp = new Timestamp(date.getTime());
+	 * System.out.println("Zona:" + zona + " Sensor:" + sensor + " Medicao:" +
+	 * medicao + " Data:" + timestamp); } } }
 	 */
 }
